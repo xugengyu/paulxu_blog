@@ -46,25 +46,13 @@ We need to use a blog-ready theme. For this activity, we will use a theme named 
   <<< Author notes: Step 4 >>>
   Start this step by acknowledging the previous step.
   Define terms and link to docs.github.com.
-  Historic note: previous version checked the file path. Previous version checked the front matter formatting.
 -->
 
-## Step 4: Create a blog post
+## Step 5: Merge your pull request
 
-_Your home page is looking great! :cowboy_hat_face:_
+_Nice work, friend :heart:! People will be reading your blog in no time!_
 
-GitHub Pages uses Jekyll. In Jekyll, we can create a blog by using specially named files and frontmatter. The files must be named `_posts/YYYY-MM-DD-title.md`. You must also include `title` and `date` in your frontmatter.
-
-**What is _frontmatter_?**: The syntax Jekyll files use is called YAML frontmatter. It goes at the top of your file and looks something like this:
-
-```yml
----
-title: "Welcome to my blog"
-date: 2019-01-20
----
-```
-
-For more information about configuring front matter, see the [Jekyll frontmatter documentation](https://jekyllrb.com/docs/frontmatter/).
+You can now [merge](https://docs.github.com/en/get-started/quickstart/github-glossary#merge) your pull request!
 
 ### :keyboard: Activity: Create a blog post
 
@@ -85,7 +73,6 @@ For more information about configuring front matter, see the [Jekyll frontmatter
 1. Replace `YYYY-MM-DD` with today's date.
 1. Type a quick draft of your blog post. Remember, you can always edit it later.
 1. Commit your changes to your branch.
->>>>>>> my-pages
 1. Wait about 20 seconds then refresh this page (the one you're following instructions from). [GitHub Actions](https://docs.github.com/en/actions) will automatically update to the next step.
 
 <footer>
