@@ -1,5 +1,9 @@
 <h3> Reading List </h3>
 <p align="center">
+<img src="https://paulxu.me/interests/comics/images/beneath-the-trees.jpeg" alt="drawing" width="350"/>
+</p>
+
+<p align="center">
 <img src="https://paulxu.me/interests/comics/images/nice_house_by_the_sea.jpeg" alt="drawing" width="350"/>
 </p>
 
@@ -43,9 +47,6 @@
 <img src="https://paulxu.me/interests/comics/images/descender.jpeg" alt="drawing" width="350"/>
 </p>
 
-<p align="center">
-<img src="https://paulxu.me/interests/comics/images/the_boys.jpeg" alt="drawing" width="350"/>
-</p>
 
 <h3> Completed </h3>
 
