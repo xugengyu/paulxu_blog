@@ -35,9 +35,9 @@ The slicer that I am using is [Ultimaker Cura](https://ultimaker.com/software/ul
 
 # Filaments
 
-## Amazon Basic Silk PLA Filament
+#### Amazon Basic Silk PLA Filament
 Bed temperature: 65C for first layer; 50C for all subsequent layers.
 
-## Creality (Basic PLA)
+#### Creality (Basic PLA)
 
-## Elegoo PLA Filament
+#### Elegoo PLA Filament
