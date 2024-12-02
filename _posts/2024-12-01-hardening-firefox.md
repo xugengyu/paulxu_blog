@@ -15,3 +15,6 @@ Some things to do to harden a new Firefox installation.
 - Facebook Container
 
 ## Settings
+- HTTPS-only mode in all windows
+- Disable search suggestions
+- Set default search engine to DuckDuckGo
