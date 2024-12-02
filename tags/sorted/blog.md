@@ -1,7 +1,7 @@
 ---
 layout: tag
 tag: blog
-permalink: /tags/blog/
+permalink: /tags/sorted/blog/
 ---
 
 <h1> Posts with "blog" </h1>
