@@ -38,7 +38,7 @@ layout: base
   <footer class="post-tags">
     <p>Tags: 
       {% for tag in page.tags %}
-        <a href="/tags/{{ tag | slugify }}" class="tag-link">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
+        <a href="/tags/sorted/{{ tag | slugify }}" class="tag-link">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
       {% endfor %}
     </p>
   </footer>
