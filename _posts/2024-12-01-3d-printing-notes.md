@@ -6,6 +6,16 @@ tags: tech notes
 
 Here I compile some notes on different settings I am tinkering while playing with my 3D printer.
 
+# Table of Contents
+- [Setup](#setup)
+- [Bed Texture](#bed-texture)
+- [Z-hopping](#z-hopping)
+- [Skirts](#skirts)
+- [Filaments](#filaments)
+    - [Amazon Basic Silk PLA Filament](#amazon-basic-silk-pla-filament)
+    - [Creality (Basic PLA)](#creality-basic-pla)
+    - [Elegoo PLA Filament](#elegoo-pla-filament)
+
 ## Setup
 <p align="center">
 <img src="https://paulxu.me/images/ender-3-pro.jpeg" alt="drawing" width="400"/>
@@ -21,7 +31,7 @@ The slicer that I am using is [Ultimaker Cura](https://ultimaker.com/software/ul
 
 ## Leveling
 
-## Skirt
+## Skirts
 
 ## Filaments
 
