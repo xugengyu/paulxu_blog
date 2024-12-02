@@ -3,3 +3,9 @@ title: Random Thoughts of Some Random Guy
 author: Paul Xu
 
 markdown: kramdown
+
+navigation:
+  - title: "Posts with Tag1"
+    url: "/tag/tag1/"
+  - title: "Posts with Tag2"
+    url: "/tag/tag2/"
