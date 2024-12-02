@@ -1,8 +1,12 @@
-<h1> Hardening Firefox</h1>
+---
+title: "Hardening Firefox"
+date: 2024-12-01
+tags: tech notes
+---
 
 Some things to do to harden a new Firefox installation.
 
-<h2> Extensions </h2>
+## Extensions
 - uBlock Origin
 - Privacy Badger
 - ClearURLs
@@ -10,4 +14,4 @@ Some things to do to harden a new Firefox installation.
 - Cookie AutoDelete
 - Facebook Container
 
-<h2> Settings </h2>
+## Settings
