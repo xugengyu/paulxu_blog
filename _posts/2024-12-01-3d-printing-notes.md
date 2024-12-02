@@ -6,6 +6,7 @@ tags: tech notes
 
 Here I compile some notes on different settings I am tinkering while playing with my 3D printer.
 
+## Setup
 <p align="center">
 <img src="https://paulxu.me/images/ender-3-pro.jpeg" alt="drawing" width="400"/>
 </p>
@@ -14,16 +15,19 @@ I am using an entry level printer: the [Ender-3 S1 Pro](https://www.creality.com
 
 The slicer that I am using is [Ultimaker Cura](https://ultimaker.com/software/ultimaker-cura/)
 
-# Bed Texture
+## Bed Texture
 
-# Z-hopping
+## Z-hopping
 
-# Leveling
+## Leveling
 
-# Skirt
+## Skirt
 
-# Filaments
-## Amazon Basic Silk PLA Filament
+## Filaments
+
+#### Amazon Basic Silk PLA Filament
 Bed temperature: 65C for first layer; 50C for all subsequent layers.
-## Creality (Basic PLA)
-## Elegoo PLA Filament
+
+#### Creality (Basic PLA)
+
+#### Elegoo PLA Filament
