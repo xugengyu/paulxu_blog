@@ -1,11 +1,19 @@
 ---
-title: "Notes on Tiny SA Ultra"
+title: "Hardening Firefox"
 date: 2024-12-01
 tags: tech notes
 ---
 
-Some notes regarding the Tiny SA (Spectrum Analyzer) Ultra
+Some things to do to harden a new Firefox installation.
 
-### Noise Figure Measurement
+## Extensions
+- uBlock Origin
+- ClearURLs
+- LocalCDN
+- Cookie AutoDelete
+- Facebook Container
 
-### Calibration
+## Settings
+- HTTPS-only mode in all windows
+- Disable search suggestions
+- Set default search engine to DuckDuckGo
