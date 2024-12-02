@@ -1,7 +1,5 @@
 ---
 layout: tag
-tag: tech
+tag: notes
 permalink: /tags/sorted/notes/
 ---
-
-# Posts with "Notes"
