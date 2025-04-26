@@ -4,11 +4,6 @@ date: 2025-04-26
 tags: notes
 ---
 
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
-
 In this post I discuss measurement of several important parameters of RF amplifiers using the TinySA (spectrum analyzer) and NanoVNA (vector network analyzer).
 
 ## Introduction
