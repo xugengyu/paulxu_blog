@@ -1,39 +1,17 @@
 <h3> Notes on Radiofrequency Engineering </h3>
 
-<h4> Mixers </h4>
+<h4> Active Devices </h4>
 
-- Graphical Interpretation
+- [Amplifier Measurements](https://paulxu.me/2025/04/26/lna-measurement.html)
 
-- Heterodyne
+- Mixer Measurements
 
-- Direct Conversion
+<h4> Instrumentation </h4>
 
-<h4> Noise </h4>
+- Vector Network Analyzer
 
-- Noise Figure and Noise Temperature
+- Spectrum Analyzer
 
-- Noise Folding
+- Signal Generator
 
-<h4> Transmitter Systems </h4>
-
-- Gain Compression
-
-- Intermodulation Distortion
-
-- Counter Intermodulation
-
-- Digital Predistortion
-
-
-<h4> Mixed Signals </h4>
-
-- Analog-to-Digital Conversion
-
-- Digital-to-Analog Conversion
-
-
-<h4> Phase Locked Loops </h4>
-
-- Fundamentals of PLLs
-
-- Distributed PLLs
+<h4> Simulation </h4>
