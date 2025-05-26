@@ -32,15 +32,19 @@ Unlike a more sophisticated (and much more expensive) VNA, the NanoVNA only has 
 ## Noise Figure
 We can measure the noise figure of our amplifier with the TinySA, using the cold source method.
 
-Putting a $$50\Omega$$ termination directly at the input port of the TinySA, we measure a noise level of -169.5dBm/Hz. This value can be used to calculate the effective noise temperature of the receiver inside the TinySA. 
+Putting a $$50\Omega$$ termination directly at the input port of the TinySA, we measure a noise level of -169.5dBm/Hz. This value can be used to calculate the effective noise temperature of the receiver inside the TinySA. We will assume that the resistor is at the IEEE reference temperature of 290K. In practice, of course the physical temperature of our termination will be slightly different. However, small differences like this will not cause significant errors in our measurement.
 
-Since the thermal noise floor is $$10\log_{10}(1.38\times10^{-23}\times10^{3}\times290)=\mathrm{-173.9dBm/Hz}$$, we see that the TinySA increased the noise power by approximately 4.6dBm/Hz.This means the noise figure of TinySA is about 4.6dB. Alternatively, we can say it has a noise temperature of approximately $$290\left(10^{4.5/10}-1\right)=546.4\mathrm{K}$$.
+On the TinySA, we measure a noise floor of $$\mathrm{-169.3dBm/Hz}$$.
+Since the thermal noise floor is $$10\log_{10}(1.38\times10^{-23}\times10^{3}\times290)=\mathrm{-173.9dBm/Hz}$$, we conclude that the TinySA increased the total noise power by approximately 4.6dBm/Hz.This means the noise figure of TinySA is about 4.6dB. Alternatively, we can say it has an effective noise temperature of approximately $$290\left(10^{4.6/10}-1\right)=546.4\mathrm{K}$$. Note that the IEEE definition of noise figure (or noise factor) is 
+```math
+F = \frac{\mathrm{SNR}_{in}}{\mathrm{SNR}_{out}}
+```
+where $$SNR_{in}$$ is the signal-to-noise ratio at the DUT input,with the noise power being the noise power of a resistor at the reference temperature $T_0=290K$.
 
-Having characterize the noise properties of the TinySA, we can now measure the DUT. We will then remove the added noise of the TinySA from the overall measurements, to obtain the noise figure of the DUT itself.
+Having characterize the noise properties of the TinySA, we can now measure the DUT cascaded with the internal receiver. We will then remove the added noise of the TinySA from the overall measurements, to obtain the noise figure of the DUT itself.
 
 The gain of the DUT is 
 
-Note that
 
 ## Use in FM Receiver
 ### Long Lossy Cable
