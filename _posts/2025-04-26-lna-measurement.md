@@ -37,9 +37,9 @@ Putting a $$50\Omega$$ termination directly at the input port of the TinySA, we 
 On the TinySA, we measure a noise floor of $$\mathrm{-169.3dBm/Hz}$$.
 Since the thermal noise floor is $$10\log_{10}(1.38\times10^{-23}\times10^{3}\times290)=\mathrm{-173.9dBm/Hz}$$, we conclude that the TinySA increased the total noise power by approximately 4.6dBm/Hz.This means the noise figure of TinySA is about 4.6dB. Alternatively, we can say it has an effective noise temperature of approximately $$290\left(10^{4.6/10}-1\right)=546.4\mathrm{K}$$. Note that the IEEE definition of noise figure (or noise factor) is 
 ```math
-F = \frac{\mathrm{SNR}_{in}}{\mathrm{SNR}_{out}}
+$$F = \frac{\mathrm{SNR}_{in}}{\mathrm{SNR}_{out}}$$
 ```
-where $$SNR_{in}$$ is the signal-to-noise ratio at the DUT input,with the noise power being the noise power of a resistor at the reference temperature $T_0=290K$.
+where $$SNR_{in}$$ is the signal-to-noise ratio at the DUT input,with the noise power being the noise power of a resistor at the reference temperature $$T_0=290K$$.
 
 Having characterize the noise properties of the TinySA, we can now measure the DUT cascaded with the internal receiver. We will then remove the added noise of the TinySA from the overall measurements, to obtain the noise figure of the DUT itself.
 
