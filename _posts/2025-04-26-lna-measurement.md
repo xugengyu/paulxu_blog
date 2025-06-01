@@ -1,7 +1,7 @@
 ---
 title: "Amplifier Characterization Using TinySA and NanoVNA"
 date: 2025-04-26
-tags: notes
+tags: notes study
 ---
 
 In this post I discuss measurement of several important parameters of RF amplifiers using the TinySA (spectrum analyzer) and NanoVNA (vector network analyzer).

@@ -1,10 +1,9 @@
 <h3> Notes on Signal Processing </h3>
 
-<h4> Multi-rate DSP </h4>
+<h5> Multi-rate DSP </h5>
 
 - Polyphase Channelizer
 
-<h4> Spatial Signal Processing </h4>
+<h5> Spatial Signal Processing </h5>
 
-- Spatial Aliasing
-- Wave-vector Frequency Response
+- [Digital Beamforming](https://paulxu.me/2025/05/26/digital-beamforming.html)
