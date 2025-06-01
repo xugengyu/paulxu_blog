@@ -1,17 +1,11 @@
 <h3> Notes on Radiofrequency Engineering </h3>
 
-<h5> Active Devices </h5>
+This is a collection of RF engineering topics I've come across during my studies and professional experience. I update it regularly as I continue to learn and explore more in the field.
 
-- [Amplifier Measurements](https://paulxu.me/2025/04/26/lna-measurement.html)
+Some of the explanations are based on my own intuition and understanding, so they may contain mistakes. If you notice any errors, please don’t hesitate to reach out!
 
-- Mixer Measurements
-
-<h5> Instrumentation </h5>
-
-- Vector Network Analyzer
-
-- Spectrum Analyzer
-
-- Signal Generator
-
-<h5> Simulation </h5>
+<object data="https://paulxu.me/assets/pdf_notes/rf_engineering_notes.pdf" type="application/pdf">
+    <embed src="https://paulxu.me/assets/pdf_notes/rf_engineering_notes.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://paulxu.me/assets/pdf_notes/rf_engineering_notes.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
