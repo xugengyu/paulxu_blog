@@ -11,3 +11,6 @@ I work in the field of radiofrequency engineering, specializing in:
 - signal processing
 
 I like to learn about random things that may or may not be related to my field.
+
+My resume:
+

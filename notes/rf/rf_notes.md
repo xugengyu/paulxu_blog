@@ -1,6 +1,6 @@
 <h3> Notes on Radiofrequency Engineering </h3>
 
-This is a collection of RF engineering topics I've come across during my studies and professional experience. I update it regularly as I continue to learn and explore more in the field.
+This is a collection of RF engineering topics I've come across during my studies and professional experience. I will update it regularly as I continue to learn and explore more in the field.
 
 Some of the explanations are based on my own intuition and understanding. If you notice any errors, please don’t hesitate to reach out!
 
