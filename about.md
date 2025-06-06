@@ -2,7 +2,7 @@
 title: About Me
 ---
 
-I am an electrical engineer working in the Greater Seattle Area.
+I am an Antenna/RF engineer working in the Greater Seattle Area.
 
 I work in the field of radiofrequency engineering, specializing in:
 
@@ -12,5 +12,4 @@ I work in the field of radiofrequency engineering, specializing in:
 
 I like to learn about random things that may or may not be related to my field.
 
-My resume:
 
