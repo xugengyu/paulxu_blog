@@ -1,9 +1,11 @@
 ---
-title: "Test Embedding HTML Plot"
+title: "Time Delay in Frequency Domain"
 date: 2025-08-20
 tags: hobby
 ---
 
-test embedding interactive html plot
+Here is an interactive plot I made illustrating the effect of time delay in the frequency domain.
 
-<iframe src="https://paulxu.me/images/test.html" width="800" height="600" frameborder="0"></iframe>
+Observe that delay essentially creates a rotation to the frequency domain samples.
+
+<iframe src="https://paulxu.me/images/20250820-delay-fft.html" width="800" height="600" frameborder="0"></iframe>
