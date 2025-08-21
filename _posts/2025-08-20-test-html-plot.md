@@ -6,5 +6,4 @@ tags: hobby
 
 test embedding interactive html plot
 
-
-{% include https://paulxu.me/images/test.html %}
+<iframe src="https://paulxu.me/images/test.html" width="800" height="600" frameborder="0"></iframe>
