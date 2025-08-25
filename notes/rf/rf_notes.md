@@ -1,6 +1,6 @@
 <h3> Notes on Radiofrequency Engineering </h3>
 
-This is a collection of RF engineering topics I've come across during my studies and professional experience. I will update it regularly as I continue to learn and explore more in the field.
+<!---This is a collection of RF engineering topics I've come across during my studies and professional experience. I will update it regularly as I continue to learn and explore more in the field.
 
 Some of the explanations are based on my own intuition and understanding. If you notice any errors, please don’t hesitate to reach out!
 
@@ -8,4 +8,4 @@ Some of the explanations are based on my own intuition and understanding. If you
     <embed src="https://paulxu.me/assets/pdf_notes/rf_engineering_notes.pdf">
         <p>This browser does not support PDFs. Please download the PDF to view it: <a href="https://paulxu.me/assets/pdf_notes/rf_engineering_notes.pdf">Download PDF</a>.</p>
     </embed>
-</object>
+</object>--->
