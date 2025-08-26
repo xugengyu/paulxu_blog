@@ -8,5 +8,6 @@
     </embed>
 </object>--->
 
-<h4> Basic Digital Signal Processing </h4>
+<h4> Digital Signal Processing </h4>
 - [Time Delay in Frequency Domain](/2025/08/20/time-delay-in-frequency-domain.html)
+- [Polyphase Channelizer](/2025/08/24/polyphase-channelizer.html)
