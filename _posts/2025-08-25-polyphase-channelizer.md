@@ -14,5 +14,6 @@ Say we wish to extract the four narrow band signals while lowering the sampling 
 2. Apply anti-aliasing filter to remove all other channels
 3. Downsample to desired sampling rate
 
-This approach is extremely inefficient in terms of computation.
+This approach is extremely inefficient in terms of computation. For each of the 4 channels, we need to process all 4000 samples (during Step 2),
 
+ 
