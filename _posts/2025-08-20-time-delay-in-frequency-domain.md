@@ -1,7 +1,7 @@
 ---
-title: "Time Delay in Frequency Domain"
+title: "Visualizing Time Delay in Frequency Domain"
 date: 2025-08-20
-tags: hobby
+tags: dsp notes study communication
 ---
 
 This is an interactive plot I made illustrating the effect of time delay in the frequency domain.

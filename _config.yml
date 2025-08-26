@@ -3,19 +3,3 @@ title: Paul's Notes
 author: Paul Xu
 
 markdown: kramdown
-
-nav:
-  - title: "Blog"
-    url: /
-  - title: "About"
-    url: /about/
-  - title: "Notes"
-    url: /notes/
-  - title: "Contact"
-    url: /contact/
-  - title: "Interests"
-    url: /interests/
-  - title: "Tags"
-    url: /tags/
-    
-search: true
