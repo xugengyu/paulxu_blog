@@ -22,10 +22,10 @@ Next, we apply anti-aliasing filter to remove all other channels, preventing the
 <iframe src="https://paulxu.me/images/2025-08-25/lpf_taps.html" width="800" height="450" frameborder="0"></iframe>
 
 The filtered signal looks like this:
-<iframe src="https://paulxu.me/images/2025-08-25/filtered_wideband_signal.html" width="800" height="700" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/filtered_wideband_signal.html" width="800" height="450" frameborder="0"></iframe>
 
 Finally, we down-sample the filtered signal with a decimation factor of 4.
-<iframe src="https://paulxu.me/images/2025-08-25/decim_filtered_signal.html" width="800" height="700" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/decim_filtered_signal.html" width="800" height="450" frameborder="0"></iframe>
 
 As an aside, checkout my post here on visualizing the down-sampling process in the frequency domain.
 
@@ -41,7 +41,7 @@ To illustrate this, let us consider the following wide-band waveform with unifor
 <iframe src="https://paulxu.me/images/2025-08-25/wideband_signal_polyphase_input.html" width="800" height="450" frameborder="0"></iframe>
 
 To aid visualization, let us assume that the signal has a purely real spectrum. The intuition developed in this case can later be generalized to arbitrary waveforms with complex spectra. Now, let us plot the spectrum of the signal on a complex IQ plane:
-<iframe src="https://paulxu.me/images/2025-08-25/wideband_signal_polyphase_input_complex.html" width="800" height="450" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/wideband_signal_polyphase_input_complex.html" width="800" height="700" frameborder="0"></iframe>
 
 First, the original signal is decomposed into four parallel streams, each operating at one-quarter of the original sampling rate. These streams are staggered with respect to one another by one-sample increments.
 
@@ -49,6 +49,6 @@ At first glance, it may seem surprising that the signals are down-sampled withou
 
 Indeed, if we examine only a single down-sampled stream, this is exactly what happens. However, when we consider all four streams together and decompose each into contributions from the four narrow-band signals, we find that each stream contains a unique mixture of these signals, distinguished by different phase shifts. The following plot illustrates this effect. Play with the slider to visualize the decomposition of different streams.
 
-<iframe src="https://paulxu.me/images/2025-08-25/staggered_downsampled_streams.html" width="800" height="450" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/staggered_downsampled_streams.html" width="800" height="700" frameborder="0"></iframe>
  
 With each stream alone, it is indeed impossible to recover the four narrow-band signals, as expected from the Nyquist sampling criterion. However, the advantage of a polyphase channelizer is that by cleverly combining the four parallel streams, it becomes possible to cancel out the unwanted signals while preserving the one of interest.
