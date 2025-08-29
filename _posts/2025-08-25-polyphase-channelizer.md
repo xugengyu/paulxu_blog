@@ -51,4 +51,33 @@ Indeed, if we examine only a single down-sampled stream, this is exactly what ha
 
 <iframe src="https://paulxu.me/images/2025-08-25/staggered_downsampled_streams.html" width="800" height="800" frameborder="0"></iframe>
  
-With each stream alone, it is indeed impossible to recover the four narrow-band signals, as expected from the Nyquist sampling criterion. However, the advantage of a polyphase channelizer is that by cleverly combining the four parallel streams, it becomes possible to cancel out the unwanted signals while preserving the one of interest.
+With each stream alone, it is indeed impossible to recover the four narrow-band signals, as expected from the Nyquist sampling criterion. However, the advantage of a polyphase channelizer is that by cleverly combining the four parallel streams, it becomes possible to cancel out the unwanted signals while preserving the one of interest. Let us see how this is possible.
+
+
+<h3>Sample Python Code to Test Polyphase Filter</h3>
+The following Python code demonstrates the equivalence between a polyphase filter and the combined filtering-and-downsampling operation.
+
+```python
+import numpy as np
+from scipy.fft import fft, ifft
+
+x = np.random.randn(12)
+h = np.random.randn(6)
+
+y_filt_down = ifft(fft(x,12)*fft(h,12))
+y_filt_down = y_filt_down[0::3]
+
+h0 = h[0::3]
+h1 = h[1::3]
+h2 = h[2::3]
+
+x0 = x[0::3]
+x1 = x[1::3]
+x2 = x[2::3]
+
+y0 = ifft(fft(x0,4)*fft(h0,4))
+y1 = ifft(fft(x2,4)*fft(h1,4))
+y2 = ifft(fft(x1,4)*fft(h2,4))
+
+y_filt_poly = np.roll(y0, 0) + np.roll(y1, 1)  + np.roll(y2, 1)
+```
