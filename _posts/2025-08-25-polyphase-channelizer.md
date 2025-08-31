@@ -4,12 +4,12 @@ date: 2025-08-25
 tags: dsp notes study communication
 ---
 
-This post illustrates the intuition behind the polyphase channelizer. All of the plots are interactive.
+This post illustrates the intuition behind the polyphase channelizer. All of the plots are interactive (generated using Plotly).
 
 Consider the following spectrum for a wide-band signal, which has been decomposed into its four constituent channels, each containing a narrow-band signal.
 <iframe src="https://paulxu.me/images/2025-08-25/wideband_signal.html" width="800" height="450" frameborder="0"></iframe>
 
-Say we wish to extract the four narrow band signals while lowering the sampling rate. There are many ways to do this. Let us first walk through the most intuitive way, which is a straightforward decimation preceded by anti-alias filtering.
+Say we wish to extract the four narrow band signals while lowering the sampling rate. There are many ways to do this. Let us first walk through the most intuitive way, which is a straightforward decimation (anti-alias-filtering followed by down-sampling).
 
 <h3>Simple Decimation Filter</h3>
 For illustration, let us extract the signal on channel 3 (denoted "Signal 3" in the previous plot). 
@@ -17,27 +17,27 @@ For illustration, let us extract the signal on channel 3 (denoted "Signal 3" in 
 We first apply a digital frequency shift to center the desired channel around DC. In practice, this is done by multiplying the IQ samples in time with a complex sinusoid with the proper frequency.
 <iframe src="https://paulxu.me/images/2025-08-25/shifted_wideband_signal.html" width="800" height="450" frameborder="0"></iframe>
 
-Next, we apply anti-aliasing filter to remove all other channels, preventing them from folding down to DC when we down-sample later. In this case, I used a 64-tap finite impulse response (FIR) low-pass filter synthesized using the **firwin** function in the **scipy.signals** module:
+Next, we apply anti-aliasing filter to attenuate all other channels, preventing them from folding down to DC when we down-sample later. In this case, I used a 64-tap finite impulse response (FIR) low-pass filter synthesized using the **firwin** function in the **scipy.signals** module:
 
 <iframe src="https://paulxu.me/images/2025-08-25/lpf_taps.html" width="800" height="450" frameborder="0"></iframe>
 
 The filtered signal looks like this:
 <iframe src="https://paulxu.me/images/2025-08-25/filtered_wideband_signal.html" width="800" height="450" frameborder="0"></iframe>
 
-Finally, we down-sample the filtered signal with a decimation factor of 4.
+Finally, we down-sample the filtered signal with a factor of 4.
 <iframe src="https://paulxu.me/images/2025-08-25/decim_filtered_signal.html" width="800" height="450" frameborder="0"></iframe>
 
 As an aside, checkout my post here on visualizing the down-sampling process in the frequency domain.
 
-Notice that during decimation, we are discarding a large amount of the samples, on which we have spent a considerable amount of computation resources. We had to convolve the wide-band input signal with a 64-tap FIR filter.
+Notice that during decimation filtering, we are discarding a large amount of the samples, on which we have spent a considerable amount of computation resources. We had to convolve the wide-band input signal with a 64-tap FIR filter.
 
 Furthermore, if we wish to extract the other three channels, we would need to quadruple the amount of computation. 
 
 
 <h3>Polyphase Channelizer</h3>
-A polyphase channelizer implements decimation filtering much more efficiently than the straightforward approach described above.
+A polyphase channelizer realizes the same effect as the decimation filter much more efficiently.
 
-To illustrate this, let us consider the following wide-band waveform with uniform, consisting of four narrow-band signals, each with a perfectly flat spectrum:
+To illustrate this, let us consider the following wide-band waveform, consisting of four narrow-band signals, each with a perfectly flat spectrum:
 <iframe src="https://paulxu.me/images/2025-08-25/wideband_signal_polyphase_input.html" width="800" height="450" frameborder="0"></iframe>
 
 To aid visualization, let us also assume that the signal has a purely real spectrum. The intuition developed in this case can later be generalized to arbitrary waveforms with complex spectra. We can now plot the spectrum of the signal on a complex IQ plane:
@@ -50,10 +50,19 @@ At first glance, it may seem surprising that the signals are down-sampled withou
 
 Indeed, if we examine only a single down-sampled stream, this is exactly what happens. However, when we consider all four streams together and decompose each into contributions from the four narrow-band signals, we find that each stream contains a unique mixture of these signals, distinguished by different phase shifts. The following plot illustrates this effect. Play with the slider to visualize the decomposition of different streams.
 
-<iframe src="https://paulxu.me/images/2025-08-25/downsampled_streams_spectrum.html" width="850" height="500" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/downsampled_streams_spectrum.html" width="850" height="650" frameborder="0"></iframe>
  
  
 With each stream alone, it is indeed impossible to recover the four narrow-band signals, as expected from the Nyquist sampling criterion. However, the advantage of a polyphase channelizer is that by cleverly combining the four parallel streams (after some processing), it becomes possible to cancel out the unwanted signal components while preserving the one of interest. Let us see how this is possible.
+
+<h3> Frequency Response of Down-sampled Filter</h3>
+The filter we wish to apply to the input signal ($h_0$) has the following frequency response:
+<iframe src="https://paulxu.me/images/2025-08-25/ideal_lpf_spectrum.html" width="850" height="500" frameborder="0"></iframe>
+
+From the block diagram of the polyphase channelizer, we see that, just like the input signal, the filter itself is decomposed into 4 staggered, down-sampled sub-filters. These are called the polyphase components of the original filter $h_0$
+
+<iframe src="https://paulxu.me/images/2025-08-25/downsampled_filter_spectrum.html" width="850" height="500" frameborder="0"></iframe>
+
 
 
 <!-- 
