@@ -2,8 +2,10 @@
 title: About Me
 ---
 
-I am an antenna/radio-frequency engineer working in the Greater Seattle Area specializing in phased array antenna systems.
+I am an antenna and radio-frequency engineer based in the Greater Seattle Area, specializing in phased-array antenna systems.
 
-I received my PhD in Electrical Engineering from the University of Toronto.
+I earned my PhD in Electrical Engineering, with a focus on electromagnetics, from the University of Toronto.
 
-I like to learn about random things that may or may not be related to my field of work; some of them are documented on my [notes](notes.md) page.
+Outside of work, I enjoy exploring a wide range of topics—some related to my field, others not so much. A few of these explorations are documented on my [notes](notes.md) page.
+
+I’m also a big fan of Pandas and Plotly. :D
