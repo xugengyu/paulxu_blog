@@ -40,8 +40,9 @@ A polyphase channelizer implements decimation filtering much more efficiently th
 To illustrate this, let us consider the following wide-band waveform with uniform, consisting of four narrow-band signals, each with a perfectly flat spectrum:
 <iframe src="https://paulxu.me/images/2025-08-25/wideband_signal_polyphase_input.html" width="800" height="450" frameborder="0"></iframe>
 
-To aid visualization, let us assume that the signal has a purely real spectrum. The intuition developed in this case can later be generalized to arbitrary waveforms with complex spectra. Now, let us plot the spectrum of the signal on a complex IQ plane:
-<iframe src="https://paulxu.me/images/2025-08-25/wideband_signal_polyphase_input_complex.html" width="800" height="800" frameborder="0"></iframe>
+To aid visualization, let us also assume that the signal has a purely real spectrum. The intuition developed in this case can later be generalized to arbitrary waveforms with complex spectra. We can now plot the spectrum of the signal on a complex IQ plane:
+
+<iframe src="https://paulxu.me/images/2025-08-25/complex_spectrum_wideband_input.html" width="800" height="800" frameborder="0"></iframe>
 
 First, the original signal is decomposed into four parallel streams, each operating at one-quarter of the original sampling rate. These streams are staggered with respect to one another by one-sample increments.
 
@@ -49,10 +50,15 @@ At first glance, it may seem surprising that the signals are down-sampled withou
 
 Indeed, if we examine only a single down-sampled stream, this is exactly what happens. However, when we consider all four streams together and decompose each into contributions from the four narrow-band signals, we find that each stream contains a unique mixture of these signals, distinguished by different phase shifts. The following plot illustrates this effect. Play with the slider to visualize the decomposition of different streams.
 
-<iframe src="https://paulxu.me/images/2025-08-25/staggered_downsampled_streams.html" width="800" height="800" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/downsampled_streams_spectrum.html" width="800" height="800" frameborder="0"></iframe>
  
-With each stream alone, it is indeed impossible to recover the four narrow-band signals, as expected from the Nyquist sampling criterion. However, the advantage of a polyphase channelizer is that by cleverly combining the four parallel streams, it becomes possible to cancel out the unwanted signals while preserving the one of interest. Let us see how this is possible.
+ 
+With each stream alone, it is indeed impossible to recover the four narrow-band signals, as expected from the Nyquist sampling criterion. However, the advantage of a polyphase channelizer is that by cleverly combining the four parallel streams (after some processing), it becomes possible to cancel out the unwanted signal components while preserving the one of interest. Let us see how this is possible.
 
+
+<!-- 
+1. Each of $h_0$, $h_1$, $h_2$, $h_3$ contain 4 shifted copies of the original filter, folded on top of each other. As with $x_0$, $x_1$, $x_2$, $x_3$, the folded copies of the filter response have progressively faster phase rotations, due to the progressive delay in time.
+2. $x_0_0$, $x_1_0$, $x_2_0$, $x_3_0$ pass through $h_0$, $h_3$, $h_2$, $h_1$ respectively. After combining the results, the only part that does not add up destructively is the part that would have remained after decimation filtering.-->
 
 <h3>Sample Python Code to Test Polyphase Filter</h3>
 The following Python code demonstrates the equivalence between a polyphase filter and the combined filtering-and-downsampling operation.
