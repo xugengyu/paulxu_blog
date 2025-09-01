@@ -1,5 +1,5 @@
 ---
-title: "Intuitive Explanation of Polyphase Channelizer"
+title: "Polyphase Channelizer"
 date: 2025-08-25
 tags: dsp notes study communication
 ---
@@ -44,6 +44,8 @@ To aid visualization, let us also assume that the signal has a purely real spect
 
 <iframe src="https://paulxu.me/images/2025-08-25/complex_spectrum_wideband_input.html" width="850" height="500" frameborder="0"></iframe>
 
+<h4> Polyphase Components of the Input Signal</h4>
+
 First, the original signal is decomposed into four parallel streams, each operating at one-quarter of the original sampling rate. These streams are staggered with respect to one another by one-sample increments.
 
 At first glance, it may seem surprising that the signals are down-sampled without any anti-aliasing filter. Intuitively, this should make it impossible to recover the desired signals on each channel, since the spectral content would fold over and overlap.
@@ -52,10 +54,9 @@ Indeed, if we examine only a single down-sampled stream, this is exactly what ha
 
 <iframe src="https://paulxu.me/images/2025-08-25/downsampled_streams_spectrum.html" width="850" height="650" frameborder="0"></iframe>
  
- 
-With each stream alone, it is indeed impossible to recover the four narrow-band signals, as expected from the Nyquist sampling criterion. However, the advantage of a polyphase channelizer is that by cleverly combining the four parallel streams (after some processing), it becomes possible to cancel out the unwanted signal components while preserving the one of interest. Let us see how this is possible.
+With each stream alone, it is indeed impossible to recover the four narrow-band signals, as expected from the Nyquist sampling criterion. However, the advantage of a polyphase channelizer is that by cleverly combining the four parallel streams (after some processing), it becomes possible to cancel out the unwanted signal components while preserving the one of interest. Let us see how this is possible, by looking at the frequency response of the filter.
 
-<h3> Frequency Response of Down-sampled Filter</h3>
+<h4> Polyphase Components of the Filter</h4>
 The filter we wish to apply to the input signal ($h_0$) has the following frequency response:
 <iframe src="https://paulxu.me/images/2025-08-25/ideal_lpf_spectrum.html" width="850" height="500" frameborder="0"></iframe>
 
@@ -64,13 +65,15 @@ From the block diagram of the polyphase channelizer, we see that, just like the 
 <iframe src="https://paulxu.me/images/2025-08-25/downsampled_filter_spectrum.html" width="850" height="500" frameborder="0"></iframe>
 
 
+<h4> Combined Filtered Output</h4>
+Just by looking at the frequency response
 
 <!-- 
 1. Each of $h_0$, $h_1$, $h_2$, $h_3$ contain 4 shifted copies of the original filter, folded on top of each other. As with $x_0$, $x_1$, $x_2$, $x_3$, the folded copies of the filter response have progressively faster phase rotations, due to the progressive delay in time.
 2. $x_0_0$, $x_1_0$, $x_2_0$, $x_3_0$ pass through $h_0$, $h_3$, $h_2$, $h_1$ respectively. After combining the results, the only part that does not add up destructively is the part that would have remained after decimation filtering.-->
 
 <h3>Sample Python Code to Test Polyphase Filter</h3>
-The following Python code demonstrates the equivalence between a polyphase filter and the combined filtering-and-downsampling operation.
+The following Python code demonstrates the equivalence between a polyphase filter and the simple decimation filter.
 
 ```python
 import numpy as np
