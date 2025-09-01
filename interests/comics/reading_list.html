@@ -1,87 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Reading List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slideshow</title>
   <style>
-    body { display:flex; justify-content:center; align-items:center; height:100vh; background:#ffffff; }
-    .slideshow { position: relative; width: 100%; height: 700px; overflow: hidden; text-align:center; }
+    .slideshow-container {
+      position: relative;
+      max-width: 850px;  /* you can adjust width */
+      height: 700px;     /* fixed height */
+      margin: auto;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 1.0);
+    }
+
     .slide {
-      position: absolute;
+      display: none;
       width: 100%;
-      height: 700px;
-      opacity: 0;
-      transition: opacity 1s;
+      height: 100%;
     }
-    .slide.active { opacity: 1; }
+
     .slide img {
-  width: 100%;
-  height: 700px;
-  object-fit: contain; /* keeps full image visible */
-  background: #ffffff; /* optional: fill empty space with background */
-}
-    .caption { font-size: 16px; color: #333; margin-top: 5px; }
-    .nav-btn {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      background: rgba(0,0,0,0.5); color: white; border: none; padding: 10px; cursor: pointer;
-      font-size: 18px; border-radius: 4px;
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* makes sure images are not clipped */
+      background-color: #ffffff; /* optional: fills empty space */
     }
-    .prev { left: 10px; }
-    .next { right: 10px; }
   </style>
 </head>
 <body>
-  <div class="slideshow">
-    <div class="slide active">
-      <img src="./images/sandman.jpg">
-      <div class="caption">★★★★☆</div>
+
+  <div class="slideshow-container">
+    <div class="slide">
+      <img src="./images/saga.jpeg" alt="Saga">
     </div>
     <div class="slide">
-      <img src="./images/ex_machina.jpeg">
-      <div class="caption">★★★★★</div>
+      <img src="./images/ex_machina.jpeg" alt="Ex Machina">
     </div>
     <div class="slide">
-      <img src="./images/maus.jpeg">
-      <div class="caption">★★★★★</div>
+      <img src="./images/y_the_last_man.jpeg" alt="Y the Last Man">
     </div>
     <div class="slide">
-      <img src="./images/paper_girls.jpeg">
-      <div class="caption">★★★★★</div>
+      <img src="./images/fables.jpeg" alt="Fables">
     </div>
     <div class="slide">
-      <img src="./images/watchmen.jpeg">
-      <div class="caption">★★★★★</div>
+      <img src="./images/watchmen.jpeg" alt="Watchmen">
     </div>
     <div class="slide">
-      <img src="./images/y_the_last_man.jpeg">
-      <div class="caption">★★★★★</div>
-    </div>
-    <div class="slide active">
-      <img src="./images/beneath-the-trees.jpg">
-      <div class="caption">★★★★☆</div>
-    </div>
-    <div class="slide">
-      <img src="./images/ducks.jpeg">
-      <div class="caption">★★★★☆</div>
-    </div>
-    <div class="slide">
-      <img src="./images/nice_house_on_the_lake.jpeg">
-      <div class="caption">★★★★★</div>
-    </div>
-    <div class="slide">
-      <img src="./images/kingdom_come.jpeg">
-      <div class="caption">★★★☆☆</div>
+      <img src="./images/maus.jpeg" alt="Maus">
     </div>
   </div>
 
   <script>
-    const slides = document.querySelectorAll(".slide");
-    let index = 0;
-    setInterval(() => {
-      slides[index].classList.remove("active");
-      index = (index + 1) % slides.length;
-      slides[index].classList.add("active");
-    }, 4000);
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+      let slides = document.getElementsByClassName("slide");
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}    
+      slides[slideIndex-1].style.display = "block";  
+      setTimeout(showSlides, 5000); // Change image every 3 seconds
+    }
   </script>
+
 </body>
 </html>
