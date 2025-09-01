@@ -14,5 +14,5 @@ tags: recipe hobby
 - 1 cup of unsweetened oat milk
 
 <h4> Comments </h4>
-I might cut back on the cordyceps and lion’s mane—the flavor is a bit too earthy for my taste.
+I might cut back on the cordyceps and lion’s mane, or increase the amount of matcha powder; the flavor is a bit too earthy for my liking.
 
