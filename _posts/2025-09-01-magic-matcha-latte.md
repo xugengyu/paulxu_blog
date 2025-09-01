@@ -8,7 +8,7 @@ tags: recipe hobby
 <h4> Ingredients </h4>
 
 <p align="center">
-<img src="https://paulxu.me/images/2025-09-01/IMG_6085.jpeg" alt="drawing" width="400"/>
+<img src="https://paulxu.me/images/2025-09-01-magic-matcha-latte/IMG_6085.jpeg" alt="drawing" width="400"/>
 </p>
 
 - 1 teaspoon of ceremonial grade matcha powder
@@ -20,8 +20,8 @@ tags: recipe hobby
 <h4> Results </h4>
 
 <p align="center">
-<img src="https://paulxu.me/images/2025-09-01/IMG_6086.jpeg" alt="drawing" width="400"/>
+<img src="https://paulxu.me/images/2025-09-01-magic-matcha-latte/IMG_6086.jpeg" alt="drawing" width="400"/>
 </p>
 
-I might cut back on the cordyceps and lion’s mane, or increase the amount of matcha powder; the flavor is a bit too earthy for my liking.
+I might cut back on the cordyceps and lion’s mane, or increase the amount of matcha powder; the flavor is a bit too earthy for my liking. 
 
