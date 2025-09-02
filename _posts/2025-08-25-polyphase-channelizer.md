@@ -117,16 +117,16 @@ A careful reader may notice that the combining matrix at the output of the polyp
 <h4> Non-ideal FIR Filters </h4>
 Up to this point, we have only considered low-pass filters with ideal brick-wall responses, where the gain is exactly zero outside the filter bandwidth. In practice, however, FIR filters cannot achieve such a response and will exhibit some ripples outside the cutoff frequency.
 
-This raises an important question: what happens when we downsample a real FIR filter which does not have zero gain outside the passband? Wouldn’t the response in the stopband fold back into the passband due to aliasing, causing distortion to the signal?
-
+This raises an important question: what happens when we down-sample a real FIR filter which does not have zero gain outside the passband? 
 For instance, consider the following non-ideal filter:
 
 <iframe src="https://paulxu.me/images/2025-08-25/nonideal_filter_freq.html" width="850" height="500" frameborder="0"></iframe>
 
+Decomposing this filter into its four polyphase components reveals that each component is distorted due to aliasing, since down-sampling folds the out-of-band filter response back into the passband of each polyphase branch:
+<iframe src="https://paulxu.me/images/2025-08-25/nonideal_filter_downsamp.html" width="850" height="500" frameborder="0"></iframe>
 
-<!-- 
-1. Each of $h_0$, $h_1$, $h_2$, $h_3$ contain 4 shifted copies of the original filter, folded on top of each other. As with $x_0$, $x_1$, $x_2$, $x_3$, the folded copies of the filter response have progressively faster phase rotations, due to the progressive delay in time.
-2. $x_0_0$, $x_1_0$, $x_2_0$, $x_3_0$ pass through $h_0$, $h_3$, $h_2$, $h_1$ respectively. After combining the results, the only part that does not add up destructively is the part that would have remained after decimation filtering.-->
+This raises an important question: how can a narrowband signal that would have passed through the original filter also pass through the polyphase filter bank without any distortion?
+
 
 <h3>Sample Python Code to Test Polyphase Filter</h3>
 The following Python code demonstrates the equivalence between a polyphase filter and the simple decimation filter.
