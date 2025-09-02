@@ -65,7 +65,7 @@ With each stream alone, it is indeed impossible to recover the four narrow-band 
 The filter we wish to apply to the input signal (h) has the following frequency response:
 <iframe src="https://paulxu.me/images/2025-08-25/ideal_lpf_spectrum.html" width="850" height="500" frameborder="0"></iframe>
 
-From the block diagram of the polyphase channelizer, we see that, just like the input signal, the filter itself is decomposed into 4 staggered, down-sampled sub-filters. These are called the polyphase components of the original filter h0
+From the block diagram of the polyphase channelizer, we see that, just like the input signal, the filter itself is decomposed into 4 staggered, down-sampled sub-filters. These are called the polyphase components of the original filter h0.
 
 <iframe src="https://paulxu.me/images/2025-08-25/downsampled_filter_spectrum.html" width="850" height="650" frameborder="0"></iframe>
 
@@ -117,7 +117,11 @@ A careful reader may notice that the combining matrix at the output of the polyp
 <h4> Non-ideal FIR Filters </h4>
 Up to this point, we have only considered low-pass filters with ideal brick-wall responses, where the gain is exactly zero outside the filter bandwidth. In practice, however, FIR filters cannot achieve such a response and will exhibit some ripples outside the cutoff frequency.
 
-This raises an important question: what happens when we downsample a real FIR filter? Wouldn’t the ripple outside the passband fold back into the passband due to aliasing? And if so, why isn’t the output of the polyphase channelizer affected by these ripples?
+This raises an important question: what happens when we downsample a real FIR filter which does not have zero gain outside the passband? Wouldn’t the response in the stopband fold back into the passband due to aliasing, causing distortion to the signal?
+
+For instance, consider the following non-ideal filter:
+
+<iframe src="https://paulxu.me/images/2025-08-25/non_ideal_filter.html" width="850" height="500" frameborder="0"></iframe>
 
 
 <!-- 
