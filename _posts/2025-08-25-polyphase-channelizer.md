@@ -89,7 +89,29 @@ Lastly, after applying a one-sample delay to the outputs of h1, h2, and h3 and z
 
 It should now be evident that the contributions from ch1, ch2, and ch3 cancel due to being out of phase, leaving only the contribution from ch0.
 
+<h4> Extraction of Other Channels</h4>
+A closer examination of the previous figure gives us some insight into how the other channels, besides ch0, can be extracted. By applying an appropriate phase shift to the outputs of the polyphase filter bank, we can cause any of ch1, ch2, or ch3 to sum constructively, while the remaining channels cancel out due to being out of phase. 
 
+> Recall that a phase shift of \(\phi\) corresponds to a rotation of \(\phi\) degrees of the frequency spectrum for all positive frequencies, and a rotation of -\(\phi\) degrees for all negative frequencies. Checkout my post on this topic here.
+
+With that in mind, we can now introduce the complete block diagram for the polyphase channelizer:
+
+<iframe src="https://paulxu.me/images/2025-08-25/block_diagram_complete.svg" width="850" height="500" frameborder="0"></iframe>
+
+Earlier, we saw that at the first output y0, only ch0 adds in phase, while ch1, ch2, and ch3 cancel out. Let’s now examine the other three outputs, each of which incorporates additional phase shifts.
+
+<iframe src="https://paulxu.me/images/2025-08-25/filter_bank_output_delayed_ch1.html" width="850" height="650" frameborder="0"></iframe>
+
+<iframe src="https://paulxu.me/images/2025-08-25/filter_bank_output_delayed_ch2.html" width="850" height="650" frameborder="0"></iframe>
+
+<iframe src="https://paulxu.me/images/2025-08-25/filter_bank_output_delayed_ch3.html" width="850" height="650" frameborder="0"></iframe>
+
+We can see that at each of the outputs y1, y2, and y3, only ch1, ch2, and ch3 respectively add in phase.
+
+<h4> Final Implementation </h4>
+A careful reader may notice that the combining matrix at the output of the polyphase filter bank looks very familiar. In fact, it is identical to the matrix multiplication implementation of the discrete Fourier transform (DFT). This observation allows us to simplify the block diagram of the polyphase channelizer as follows:   
+
+<iframe src="https://paulxu.me/images/2025-08-25/block_diagram_dft.svg" width="850" height="500" frameborder="0"></iframe>
 
 <!-- 
 1. Each of $h_0$, $h_1$, $h_2$, $h_3$ contain 4 shifted copies of the original filter, folded on top of each other. As with $x_0$, $x_1$, $x_2$, $x_3$, the folded copies of the filter response have progressively faster phase rotations, due to the progressive delay in time.
