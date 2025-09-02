@@ -65,8 +65,17 @@ From the block diagram of the polyphase channelizer, we see that, just like the 
 <iframe src="https://paulxu.me/images/2025-08-25/downsampled_filter_spectrum.html" width="850" height="500" frameborder="0"></iframe>
 
 
-<h4> Combined Filtered Output</h4>
-Just by looking at the frequency response
+<h4> Polyphase Filter Bank </h4>
+In the following figure, I plot the inputs to the polyphase filter bank; each of the inputs have been decomposed into its four constituent channels. I also overlaid the frequency response of each of the polyphase components of the original filter.
+<iframe src="https://paulxu.me/images/2025-08-25/filter_bank_input.html" width="850" height="650" frameborder="0"></iframe>
+
+After multiplying the inputs with the polyphase filter bank, we obtain the following outputs:
+<iframe src="https://paulxu.me/images/2025-08-25/filter_bank_output.html" width="850" height="650" frameborder="0"></iframe>
+
+After applying 1 unit of delay to the outputs of h1, h2, and h3, we obtain the following outputs:
+<iframe src="https://paulxu.me/images/2025-08-25/filter_bank_output_delayed.html" width="850" height="650" frameborder="0"></iframe>
+
+It is now clear that the the contributions of ch1, ch2, and ch3 cancel out, leaving only the contribution from ch0.
 
 <!-- 
 1. Each of $h_0$, $h_1$, $h_2$, $h_3$ contain 4 shifted copies of the original filter, folded on top of each other. As with $x_0$, $x_1$, $x_2$, $x_3$, the folded copies of the filter response have progressively faster phase rotations, due to the progressive delay in time.
