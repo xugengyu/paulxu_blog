@@ -3,6 +3,9 @@ title: "Polyphase Channelizer"
 date: 2025-08-25
 tags: dsp notes study communication
 ---
+The polyphase channelizer is a powerful tool used to efficiently split a wideband signal into multiple narrower channels. The plot below shows a simplified block diagram illustrating how a single channel is extracted, which we will examine first. Once we understand this process, we will modify the block diagram to extract all channels simultaneously.
+
+<iframe src="https://paulxu.me/images/2025-08-25/block_diagram.svg" width="850" height="500" frameborder="0"></iframe>
 
 This post illustrates the intuition behind the polyphase channelizer. All of the plots are interactive (generated using Plotly).
 
@@ -57,25 +60,35 @@ Indeed, if we examine only a single down-sampled stream, this is exactly what ha
 With each stream alone, it is indeed impossible to recover the four narrow-band signals, as expected from the Nyquist sampling criterion. However, the advantage of a polyphase channelizer is that by cleverly combining the four parallel streams (after some processing), it becomes possible to cancel out the unwanted signal components while preserving the one of interest. Let us see how this is possible, by looking at the frequency response of the filter.
 
 <h4> Polyphase Components of the Filter</h4>
-The filter we wish to apply to the input signal ($h_0$) has the following frequency response:
+The filter we wish to apply to the input signal (h) has the following frequency response:
 <iframe src="https://paulxu.me/images/2025-08-25/ideal_lpf_spectrum.html" width="850" height="500" frameborder="0"></iframe>
 
-From the block diagram of the polyphase channelizer, we see that, just like the input signal, the filter itself is decomposed into 4 staggered, down-sampled sub-filters. These are called the polyphase components of the original filter $h_0$
+From the block diagram of the polyphase channelizer, we see that, just like the input signal, the filter itself is decomposed into 4 staggered, down-sampled sub-filters. These are called the polyphase components of the original filter h0
 
 <iframe src="https://paulxu.me/images/2025-08-25/downsampled_filter_spectrum.html" width="850" height="500" frameborder="0"></iframe>
 
 
 <h4> Polyphase Filter Bank </h4>
-In the following figure, I plot the inputs to the polyphase filter bank; each of the inputs have been decomposed into its four constituent channels. I also overlaid the frequency response of each of the polyphase components of the original filter.
+The following plot is slightly busy, but you can disable individual traces by clicking on the legend.
+
+The first set of traces corresponds to the inputs to the polyphase filter bank. More specifically, each plot shows the contribution of a single channel (ch0, ch1, ch2, and ch3) to the four polyphase filters (h0, h1, h2, and h3). Recall from the block diagram that each filter receives contributions from all four channels, but with different delays.
+
+The dotted lines represent the frequency responses of the polyphase filters (h0, h1, h2, and h3).
+
+Finally, the last set of traces corresponds to the outputs of the polyphase filters, obtained by multiplying the input traces with their respective filter responses. In the time domain, this would be a convolution operation.
+
 <iframe src="https://paulxu.me/images/2025-08-25/filter_bank_input.html" width="850" height="650" frameborder="0"></iframe>
 
-After multiplying the inputs with the polyphase filter bank, we obtain the following outputs:
+To focus on the outputs of the filter bank, the following plot replicates the one above, except only the outputs are shown for clarity.
+
 <iframe src="https://paulxu.me/images/2025-08-25/filter_bank_output.html" width="850" height="650" frameborder="0"></iframe>
 
-After applying 1 unit of delay to the outputs of h1, h2, and h3, we obtain the following outputs:
+Lastly, after applying a one-sample delay to the outputs of h1, h2, and h3 and zero delay to the output of h0, we obtain the following signals. These are then summed to produce the final output of the polyphase channelizer.
 <iframe src="https://paulxu.me/images/2025-08-25/filter_bank_output_delayed.html" width="850" height="650" frameborder="0"></iframe>
 
-It is now clear that the the contributions of ch1, ch2, and ch3 cancel out, leaving only the contribution from ch0.
+It should now be evident that the contributions from ch1, ch2, and ch3 cancel due to being out of phase, leaving only the contribution from ch0.
+
+
 
 <!-- 
 1. Each of $h_0$, $h_1$, $h_2$, $h_3$ contain 4 shifted copies of the original filter, folded on top of each other. As with $x_0$, $x_1$, $x_2$, $x_3$, the folded copies of the filter response have progressively faster phase rotations, due to the progressive delay in time.
