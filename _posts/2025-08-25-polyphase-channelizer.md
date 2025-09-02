@@ -3,19 +3,20 @@ title: "Polyphase Channelizer"
 date: 2025-08-25
 tags: dsp notes study communication
 ---
+
+This post explores the intuition behind the polyphase channelizer. All of the plots are interactive (generated using Plotly).
+
 The polyphase channelizer is a powerful tool used to efficiently split a wideband signal into multiple narrower channels. The plot below shows a simplified block diagram illustrating how a single channel is extracted, which we will examine first. Once we understand this process, we will modify the block diagram to extract all channels simultaneously.
 
 <iframe src="https://paulxu.me/images/2025-08-25/block_diagram.svg" width="850" height="500" frameborder="0"></iframe>
 
-This post illustrates the intuition behind the polyphase channelizer. All of the plots are interactive (generated using Plotly).
-
-Consider the following spectrum for a wide-band signal, which has been decomposed into its four constituent channels, each containing a narrow-band signal.
+Consider the following spectrum for a wide-band input signal (x), which has been decomposed into its four constituent channels (ch0, ch1, ch2, and ch3), each containing a narrow-band signal.
 <iframe src="https://paulxu.me/images/2025-08-25/wideband_signal.html" width="800" height="450" frameborder="0"></iframe>
 
 Say we wish to extract the four narrow band signals while lowering the sampling rate. There are many ways to do this. Let us first walk through the most intuitive way, which is a straightforward decimation (anti-alias-filtering followed by down-sampling).
 
 <h3>Simple Decimation Filter</h3>
-For illustration, let us extract the signal on channel 3 (denoted "Signal 3" in the previous plot). 
+For illustration, let us extract the signal on channel 3 (denoted "ch3" in the previous plot). 
 
 We first apply a digital frequency shift to center the desired channel around DC. In practice, this is done by multiplying the IQ samples in time with a complex sinusoid with the proper frequency.
 <iframe src="https://paulxu.me/images/2025-08-25/shifted_wideband_signal.html" width="800" height="450" frameborder="0"></iframe>
