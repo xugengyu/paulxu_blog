@@ -8,7 +8,7 @@ This post explores the intuition behind the polyphase channelizer. All of the pl
 
 The polyphase channelizer is a powerful tool used to efficiently split a wideband signal into multiple narrower channels. The plot below shows a simplified block diagram illustrating how a single channel is extracted, which we will examine first. Once we understand this process, we will modify the block diagram to extract all channels simultaneously.
 
-<iframe src="https://paulxu.me/images/2025-08-25/block_diagram.png" width="800" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/block_diagram.png" width="1000" frameborder="0"></iframe>
 
 
 Consider the following spectrum for a wide-band input signal (x), which has been decomposed into its four constituent channels (ch0, ch1, ch2, and ch3), each containing a narrow-band signal.
@@ -97,7 +97,7 @@ A closer examination of the previous figure gives us some insight into how the o
 
 With that in mind, we can now introduce the complete block diagram for the polyphase channelizer:
 
-<iframe src="https://paulxu.me/images/2025-08-25/block_diagram_complete.png" width="800" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/block_diagram_complete.png" width="1000" frameborder="0"></iframe>
 
 Earlier, we saw that at the first output y0, only ch0 adds in phase, while ch1, ch2, and ch3 cancel out. Let’s now examine the other three outputs, each of which incorporates additional phase shifts.
 
@@ -112,7 +112,7 @@ We can see that at each of the outputs y1, y2, and y3, only ch1, ch2, and ch3 re
 <h4> Final Implementation </h4>
 A careful reader may notice that the combining matrix at the output of the polyphase filter bank looks very familiar. In fact, it is identical to the matrix multiplication implementation of the discrete Fourier transform (DFT). This observation allows us to simplify the block diagram of the polyphase channelizer as follows:   
 
-<iframe src="https://paulxu.me/images/2025-08-25/block_diagram_dft.png" width="800" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/block_diagram_dft.png" width="1000" frameborder="0"></iframe>
 
 <h4> Non-ideal FIR Filters </h4>
 Up to this point, we have only considered low-pass filters with ideal brick-wall responses, where the gain is exactly zero outside the filter bandwidth. In practice, however, FIR filters cannot achieve such a response and will exhibit some ripples outside the cutoff frequency.
@@ -121,7 +121,7 @@ This raises an important question: what happens when we downsample a real FIR fi
 
 For instance, consider the following non-ideal filter:
 
-<iframe src="https://paulxu.me/images/2025-08-25/non_ideal_filter.html" width="850" height="500" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/nonideal_filter_freq.html" width="850" height="500" frameborder="0"></iframe>
 
 
 <!-- 
