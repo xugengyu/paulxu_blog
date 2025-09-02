@@ -8,7 +8,7 @@ This post explores the intuition behind the polyphase channelizer. All of the pl
 
 The polyphase channelizer is a powerful tool used to efficiently split a wideband signal into multiple narrower channels. The plot below shows a simplified block diagram illustrating how a single channel is extracted, which we will examine first. Once we understand this process, we will modify the block diagram to extract all channels simultaneously.
 
-<iframe src="https://paulxu.me/images/2025-08-25/block_diagram.svg" width="850" height="500" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/block_diagram.png" width="700" frameborder="0"></iframe>
 
 Consider the following spectrum for a wide-band input signal (x), which has been decomposed into its four constituent channels (ch0, ch1, ch2, and ch3), each containing a narrow-band signal.
 <iframe src="https://paulxu.me/images/2025-08-25/wideband_signal.html" width="800" height="450" frameborder="0"></iframe>
@@ -42,11 +42,11 @@ Furthermore, if we wish to extract the other three channels, we would need to qu
 A polyphase channelizer realizes the same effect as the decimation filter much more efficiently.
 
 To illustrate this, let us consider the following wide-band waveform, consisting of four narrow-band signals, each with a perfectly flat spectrum:
-<iframe src="https://paulxu.me/images/2025-08-25/wideband_signal_polyphase_input.html" width="800" height="450" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/wideband_signal_polyphase_input.html" width="850" height="500" frameborder="0"></iframe>
 
 To aid visualization, let us also assume that the signal has a purely real spectrum. The intuition developed in this case can later be generalized to arbitrary waveforms with complex spectra. We can now plot the spectrum of the signal on a complex IQ plane:
 
-<iframe src="https://paulxu.me/images/2025-08-25/complex_spectrum_wideband_input.html" width="850" height="500" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/complex_spectrum_wideband_input.html" width="850" height="550" frameborder="0"></iframe>
 
 <h4> Polyphase Components of the Input Signal</h4>
 
@@ -66,7 +66,7 @@ The filter we wish to apply to the input signal (h) has the following frequency 
 
 From the block diagram of the polyphase channelizer, we see that, just like the input signal, the filter itself is decomposed into 4 staggered, down-sampled sub-filters. These are called the polyphase components of the original filter h0
 
-<iframe src="https://paulxu.me/images/2025-08-25/downsampled_filter_spectrum.html" width="850" height="500" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/downsampled_filter_spectrum.html" width="850" height="550" frameborder="0"></iframe>
 
 
 <h4> Polyphase Filter Bank </h4>
@@ -96,7 +96,7 @@ A closer examination of the previous figure gives us some insight into how the o
 
 With that in mind, we can now introduce the complete block diagram for the polyphase channelizer:
 
-<iframe src="https://paulxu.me/images/2025-08-25/block_diagram_complete.svg" width="850" height="500" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/block_diagram_complete.png" width="700" frameborder="0"></iframe>
 
 Earlier, we saw that at the first output y0, only ch0 adds in phase, while ch1, ch2, and ch3 cancel out. Let’s now examine the other three outputs, each of which incorporates additional phase shifts.
 
@@ -111,7 +111,13 @@ We can see that at each of the outputs y1, y2, and y3, only ch1, ch2, and ch3 re
 <h4> Final Implementation </h4>
 A careful reader may notice that the combining matrix at the output of the polyphase filter bank looks very familiar. In fact, it is identical to the matrix multiplication implementation of the discrete Fourier transform (DFT). This observation allows us to simplify the block diagram of the polyphase channelizer as follows:   
 
-<iframe src="https://paulxu.me/images/2025-08-25/block_diagram_dft.svg" width="850" height="500" frameborder="0"></iframe>
+<iframe src="https://paulxu.me/images/2025-08-25/block_diagram_dft.png" width="700" frameborder="0"></iframe>
+
+<h4> Non-ideal FIR Filters </h4>
+Up to this point, we have only considered low-pass filters with ideal brick-wall responses, where the gain is exactly zero outside the filter bandwidth. In practice, however, FIR filters cannot achieve such a response and will exhibit some ripples outside the cutoff frequency.
+
+This raises an important question: what happens when we downsample a real FIR filter? Wouldn’t the ripple outside the passband fold back into the passband due to aliasing? And if so, why isn’t the output of the polyphase channelizer affected by these ripples?
+
 
 <!-- 
 1. Each of $h_0$, $h_1$, $h_2$, $h_3$ contain 4 shifted copies of the original filter, folded on top of each other. As with $x_0$, $x_1$, $x_2$, $x_3$, the folded copies of the filter response have progressively faster phase rotations, due to the progressive delay in time.
