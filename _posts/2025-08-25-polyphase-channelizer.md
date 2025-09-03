@@ -121,11 +121,15 @@ This raises an important question: what happens when we down-sample a real FIR f
 For instance, consider the following non-ideal filter:
 
 <iframe src="https://paulxu.me/images/2025-08-25/nonideal_filter_freq.html" width="850" height="500" frameborder="0"></iframe>
+As long as the signal completely fits inside the filter bandwidth, the it will pass through the filter without any distortion.
 
-Decomposing this filter into its four polyphase components reveals that each component is distorted due to aliasing, since down-sampling folds the out-of-band filter response back into the passband of each polyphase branch:
+But what happens when we try to implement this filter using a polyphase filter bank? Decomposing this filter into its four polyphase components reveals that each component is distorted due to aliasing, since down-sampling folds the out-of-band filter response back into the passband of each polyphase branch:
+
 <iframe src="https://paulxu.me/images/2025-08-25/nonideal_filter_downsamp.html" width="850" height="500" frameborder="0"></iframe>
 
-This raises an important question: how can a narrowband signal that would have passed through the original filter also pass through the polyphase filter bank without any distortion?
+If all of the polyphase components are distorted, how can a narrowband signal still pass through the filter bank without distortion? The answer lies in the magic of the polyphase structure: the phase shifts introduced by the delays in the downsampled input and those from the polyphase filter components interact in just the right way. As a result, the outputs acquire the necessary phases such that when combined, the distortions cancel out, leaving us with the expected output.
+
+<iframe src="https://paulxu.me/images/2025-08-25/nonideal_filter_output.html" width="850" height="500" frameborder="0"></iframe>
 
 
 <h3>Sample Python Code to Test Polyphase Filter</h3>
