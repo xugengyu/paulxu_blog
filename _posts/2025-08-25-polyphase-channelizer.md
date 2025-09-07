@@ -4,7 +4,11 @@ date: 2025-08-25
 tags: dsp notes study communication
 ---
 
-This post explores the intuition behind the polyphase channelizer. All of the plots are interactive. $`a^2 + b^2 = c^2`$
+This post explores the intuition behind the polyphase channelizer. All of the plots are interactive. \\(a^2 + b^2 = c^2\\)
+
+yrdy:
+
+\\[a^2 + b^2 = c^2\\]
 
 The polyphase channelizer is a powerful tool used to efficiently split a wideband signal into multiple narrower channels. The plot below shows a simplified block diagram illustrating how a single channel is extracted, which we will examine first. Once we understand this process, we will modify the block diagram to extract all channels simultaneously.
 
