@@ -4,11 +4,21 @@ date: 2025-09-01
 tags: dsp notes study communication rf
 ---
 
-<h3>Building Blocks</h3>
+This post explores the implementation of QPSK modulation and demodulation using GNU Radio. We begin by simulating the process with a channel model, and then demonstrate it in practice using two HackRF SDRs for transmission and reception.
+
+## Simulation with Channel Model
+
+The complete flow graph used for the simulation is shown below.
+
+<p align="center">
+<img src="https://paulxu.me/images/2025-09-13/complete-flow-graph.png" alt="drawing" width="600"/>
+</p>
+
+Let us explore the important blocks in the flow graph.
 
 <h4>Random Source</h4>
 
-This block generates a random stream of samples with levels between **Minimum** and **Maximum**. The total number of samples generated is given by **Num of Samples**.
+This block generates a random stream of samples with levels between `Minimum` and `Maximum`. The total number of samples generated is given by `Num of Samples`.
 
 Here, the output type is `byte`, which can represent an integer between 0 and 255. So we can potentially use this flow graph to simulate modulation order of up to 256-QAM.
 
@@ -33,18 +43,18 @@ A rectangular constellation object. This block serves as a map which translates 
 
 <h4>Throttle</h4>
 
-Since we are running a simulation with no actual hardware, we need to add this block to prevent the flowgraph from consuming too much processing power. In fact, the flowgraph will try to run as fast as out CPU can handle. 
+Since we are running a simulation with no actual hardware, we need to add this block to prevent the flow graph from consuming too much processing power. In fact, the flow graph will try to run as fast as out CPU can handle. 
 
-When there are rate-limiting hardware attached, such as a software-defined radio, this block is not needed.
+When there are rate-limiting hardware attached, such as a software-defined radio (which has a limited sample rate), this block is not needed.
 
 <details>
-<summary>Explanation for the Throttle Block</summary>
-The purpose of this block is explained very well by a Reddit post [here](https://www.reddit.com/r/GNURadio/comments/1d4pz1u/sample_rates_why_cant_i_slow_down_gnuradio/).
+<summary> Detailed Explanation for the Throttle Block</summary>
+The purpose of this block is explained very well by a Reddit post [here](https://www.reddit.com/r/GNURadio/comments/1d4pz1u/sample_rates_why_cant_i_slow_down_gnuradio/). I have copied the answer here for easy reference.
 
 TLDR: if you don't have a radio to enforce a real-world speed, then you want a Throttle block somewhere in your graph.
 
 The thing to remember about GNURadio is that it is not designed to limit its processing to real-time. It runs as fast as the processor can execute the code in the various blocks. Execution is opportunistic: if a block has sufficient data in its input buffers and sufficient space to write into its output buffers, it will be scheduled and will execute as soon as the CPU has time to run it.
-At any given time, a flowgraph has a buffer that is currently limiting the speed of the overall system. Examples:
+At any given time, a flow graph has a buffer that is currently limiting the speed of the overall system. Examples:
 
 - The output buffer of a source block that is waiting for data from the world outside GNURadio (like those coming in from a physical radio receiver)
 - The input buffer of a sink block that is waiting to send data to the outside world (like the input to a physical radio transmitter)
@@ -52,11 +62,11 @@ At any given time, a flowgraph has a buffer that is currently limiting the speed
 
 (Keep in mind that the output buffer of one block is the same buffer as the input buffer to the next block in the graph.)
 
-In most cases where there is a physical radio involved, assuming you're not getting overruns or underruns reported by the radio, then the sample rate of that radio limits the flowgraph's execution speed.
+In most cases where there is a physical radio involved, assuming you're not getting overruns or underruns reported by the radio, then the sample rate of that radio limits the flow graph's execution speed.
 
 GNURadio Companion creates a bit of confusion by supplying a "sample_rate" variable for every new graph, but that's just a number being assigned to a variable named "sample_rate". A graph does not inherently have a sample rate; instead, that's just the variable name used by default for most physical hardware blocks. If your graph has no hardware clock limiting its execution speed, then "sample_rate" is not used to set the processing rate.
 
-Long story short - if you don't have a hardware clock limiting the rate of your flowgraph but you still want to "emulate" a fixed sample rate, then you want a Throttle block. The Throttle block's job is to use the system clock to determine when to copy output from its input buffer to its output buffer. By doing so, it limits the speed of the whole flowgraph. However, you almost never want a Throttle block in a flowgraph that has a real radio, so be sure to remove or bypass it when you get the real radio going. 
+Long story short - if you don't have a hardware clock limiting the rate of your flow graph but you still want to "emulate" a fixed sample rate, then you want a Throttle block. The Throttle block's job is to use the system clock to determine when to copy output from its input buffer to its output buffer. By doing so, it limits the speed of the whole flow graph. However, you almost never want a Throttle block in a flow graph that has a real radio, so be sure to remove or bypass it when you get the real radio going. 
 </details>
 
 
@@ -71,7 +81,7 @@ As the name suggests, this block is used to emulate a channel over which the sig
 - Epsilon
     - used to simulate timing offset between the transmitter and the receiver.
 - Taps
-    - used to simulate multipath propagation. It is specified as an FIR filter.
+    - used to simulate multi-path propagation. It is specified as an FIR filter.
 
 <h4>Polyphase Clock Sync</h4>
 
@@ -84,7 +94,7 @@ Additionally, this block performs matched filtering and downsamples the received
 <h4>Linear Equalizer</h4>
 The equalizer ensures that all received symbols have approximate the same amplitude. 
 
-In this example, since we are using QPSK modulation, we can use a relatively simple blind equalizer which takes advantage of the knowledge that the symbols are supposed to have constant modulus.
+In this example, since we are using QPSK modulation, we can use a relatively simple blind equalizer which takes advantage of the knowledge that the symbols are supposed to have constant modulus. The employed equalization algorithm is specified in the `Adaptive Algorithm` block.
 
 <h4>Costas Loop</h4>
 
@@ -93,3 +103,7 @@ Ths Costas loop is a control loop used for carrier phase synchronization. It ens
 <h4>Constellation Sink</h4>
 
 This block is used to display the constellation of the received signal.
+
+
+
+## Experiment with HackRF
