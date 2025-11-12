@@ -4,7 +4,8 @@ date: 2025-09-01
 tags: dsp notes study communication rf
 ---
 
-This post explores the implementation of QPSK modulation and demodulation using GNU Radio. We begin by simulating the process with a channel model, and then demonstrate it in practice using two HackRF SDRs for transmission and reception.
+## QPSK Modulation/Demodulation From Scratch
+![baseband qam modulation and demodulation in gnuradio](./images/baseband_qam_gnuradio.png)
 
 ## Simulation with Channel Model
 

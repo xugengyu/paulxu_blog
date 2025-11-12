@@ -54,7 +54,7 @@ These IM3 signals are not random, hence we cannot just add in power. In reality,
 
 In the worst case when the distortion components add in voltage (coherent):
 
-$$\frac{1}{(\mathrm{OIP3}_{cas})^{1/2}}=\frac{1}{(\mathrm{OIP3}_{1}G_2)^{1/2}}+\frac{1}{(\mathrm{OIP3}_{2})^(1/2)}$$
+$$\frac{1}{(\mathrm{OIP3}_{cas})^{1/2}}=\frac{1}{(\mathrm{OIP3}_{1}G_2)^{1/2}}+\frac{1}{(\mathrm{OIP3}_{2})^{1/2}}$$
 
 In the best case when the distortion components add in power (incoherent):
 
