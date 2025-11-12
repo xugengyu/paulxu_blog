@@ -8,13 +8,17 @@ tags: dsp notes study communication rf
 
 ### Baseband Model
 
-![baseband qam modulation and demodulation in gnuradio](./images/baseband_qam_gnuradio.png)
+<p align="center">
+<img src="https://paulxu.me/images/2025-09-13/baseband_qam_gnuradio.png" alt="baseband qam modulation and demodulation in gnuradio" width="600"/>
+</p>
 
 ### Passband Model
 
 Note: the signs of the carriers might be incorrect. But the flow graph still illustrates the concept.
 
-![passband qam modulation and demodulation in gnuradio](./images/passband_qam_gnuradio.png)
+<p align="center">
+<img src="https://paulxu.me/images/2025-09-13/passband_qam_gnuradio.png" alt="passband qam modulation and demodulation in gnuradio" width="600"/>
+</p>
 
 ## Simulation with Channel Model
 
