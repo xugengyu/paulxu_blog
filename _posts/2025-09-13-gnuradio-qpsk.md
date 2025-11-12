@@ -5,7 +5,16 @@ tags: dsp notes study communication rf
 ---
 
 ## QPSK Modulation/Demodulation From Scratch
+
+### Baseband Model
+
 ![baseband qam modulation and demodulation in gnuradio](./images/baseband_qam_gnuradio.png)
+
+### Passband Model
+
+Note: the signs of the carriers might be incorrect. But the flow graph still illustrates the concept.
+
+![passband qam modulation and demodulation in gnuradio](./images/passband_qam_gnuradio.png)
 
 ## Simulation with Channel Model
 
