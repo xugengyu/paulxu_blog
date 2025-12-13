@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slideshow</title>
+  <style>
+    .slideshow-container {
+      position: relative;
+      max-width: 850px;  /* you can adjust width */
+      height: 670px;     /* fixed height */
+      margin: auto;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 1.0);
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* makes sure images are not clipped */
+      background-color: #ffffff; /* optional: fills empty space */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="slideshow-container">
+    <div class="slide">
+      <img src="./images/saga.jpeg" alt="Saga">
+    </div>
+    <div class="slide">
+      <img src="./images/ex_machina.jpeg" alt="Ex Machina">
+    </div>
+    <div class="slide">
+      <img src="./images/y_the_last_man.jpeg" alt="Y the Last Man">
+    </div>
+    <div class="slide">
+      <img src="./images/fables.jpeg" alt="Fables">
+    </div>
+    <div class="slide">
+      <img src="./images/watchmen.jpeg" alt="Watchmen">
+    </div>
+    <div class="slide">
+      <img src="./images/black_science.jpg" alt="Ex Machina">
+    </div>
+      <div class="slide">
+      <img src="./images/nice_house_on_the_lake.jpeg" alt="Ex Machina">
+    </div>
+    <div class="slide">
+      <img src="./images/sandman.jpg" alt="Ex Machina">
+    </div>
+  </div>
+
+  <script>
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+      let slides = document.getElementsByClassName("slide");
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}    
+      slides[slideIndex-1].style.display = "block";  
+      setTimeout(showSlides, 3500); // Change image every 3 seconds
+    }
+  </script>
+
+</body>
+</html>
