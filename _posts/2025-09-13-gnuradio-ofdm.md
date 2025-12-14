@@ -9,13 +9,13 @@ In this post I will deep dive into how to construct an Orthogonal Frequency Divi
 Before attempting to transmit the image, let us first look at a simpler payload in the form of a text file. I have generated a text file with 512 ASCII characters, as shown below. (Fun fact: I generated this text using Gemini.) I added a bunch of zeros at the beginning and the end of the text file, so that we can visualize it better when it is converted to a stream of numbers.
 
 <p align="center">
-<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/input_text_file.png" alt="drawing" width="400"/>
+<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/input_text_file.png" alt="drawing" width="500"/>
 </p>
 
 This text file is read by a "File Source" block in GNURadio, which outputs a stream of bytes (integers between 0 and 255). Note that each ASCII is one byte, or 8 bits.
 
 <p align="center">
-<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/file_source.png" alt="drawing" width="400"/>
+<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/file_source.png" alt="drawing" width="500"/>
 </p>
 
 The output of the file source is fed into a "Stream to Tagged Stream" block, which adds a tag stream parallel to the main data stream (our text). In our example, we will add a tag to each packet of our input stream, with the tag value being the length of the packet. Our packet length is set to 256, meaning the whole text file can be described using two packets.
@@ -23,8 +23,31 @@ The output of the file source is fed into a "Stream to Tagged Stream" block, whi
 Let us visualize the tagged input stream using a "Time Sink".
 
 <p align="center">
-<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/input_tagged_stream.png" alt="drawing" width="400"/>
+<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/input_tagged_stream.png" alt="drawing" width="500"/>
 </p>
 
-Since I set the File Source to repeat indefinitely, we can clearly see a periodic sequence of data samples with period 512. Each period begins and ends with the value 48, which is the ASCII value of the character "0". We can also see the tags that are added to the data stream, which occurs once every 256 samples.
+Since I set the File Source to repeat indefinitely, we can clearly see a periodic sequence of data samples with period 512. Each period begins and ends with the value 48, which is the ASCII value of the character "0". We can also see the tags that are added to the data stream, which occurs once every 256 samples, i.e. there is a tag for each packet.
 
+Next, we add a cyclic redundancy check (CRC) code to all of our packets, using the "Stream CRC32" block. This block takes each of our packets, computes a 32-bit CRC code, and adds it to the end of the packet. When the data + CRC code is received later, the receiver will try to perform calculations to decide if the received data has been corrupted. There are several ways this decision can be made at the receiver. I will not go through that here.
+
+<p align="center">
+<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/CRC.png" alt="drawing" width="500"/>
+</p>
+
+The output of the CRC block is shown below. Notice that each packet is 260-byte long, with the last 4 bytes being the CRC code.
+<p align="center">
+<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/input_stream_with_CRC.png" alt="drawing" width="500"/>
+</p>
+
+With the CRC code added, we can now convert our stream of bytes into a stream of QAM symbols. For this example, we will use QPSK modulation, which maps each pair of bits to one of four possible points on the IQ (complex) plane. Before mapping to the complex plane, we first convert each byte (8 bits) into four consecutive bit pairs (which will later be mapped to 4 consecutive symbols). We do this using the "Repack Bits" block.
+
+<p align="center">
+<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/pack_8bits_to_2bits.png" alt="drawing" width="500"/>
+</p>
+
+Looking at the output of this block, we see that the values are now restricted to [0,3], corresponding to {00, 01, 10, 11} in binary. Furthermore, each packet that was originally 260 samples long has now become 1080 samples long, since each of the original sample has now been split into 4 consecutive samples.
+<p align="center">
+<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/2bit_stream.png" alt="drawing" width="500"/>
+</p>
+
+Another important step to perform before we map our data (and CRC) stream to a QPSK constellation, is to generate headers for each packet.
