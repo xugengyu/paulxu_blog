@@ -1,11 +1,23 @@
 ---
-title: "Building an OFDM Wireless System with GNU Radio"
+title: "OFDM Wireless System with GNU Radio"
 date: 2025-09-01
 tags: dsp notes study communication rf
 ---
 
-In this post I will deep dive into how to construct an Orthogonal Frequency Division Multiplexing (OFDM) wireless system using GNU Radio and two HackRF Software Defined Radios (SDR). We will try to transfer an image over-the-air using QPSK modulation, and then demodulate the signal to recover the image.
+# Table of contents
+0. [Introduction](#introduction)
+1. [Simulation](#simulation)
+    1.1. [Transmitter](#transmitter)
+    1.2. [Receiver](#receiver)
 
+# 0 Introduction <a name="introduction"></a>
+In this post I will deep dive into how to construct an Orthogonal Frequency Division Multiplexing (OFDM) wireless system using GNU Radio and two HackRF Software Defined Radios (SDR). We will eventually try to transfer an image over-the-air using QPSK modulation, and then demodulate the signal to recover the image.
+
+We will first build the system and simulate it using GNU Radio. Then, we will modify it to work with actual SDR hardware.
+
+# 1 Simulation <a name="simulation"></a>
+
+## 1.1 Transmitter <a name="transmitter"></a>
 Before attempting to transmit the image, let us first look at a simpler payload in the form of a text file. I have generated a text file with 512 ASCII characters, as shown below. (Fun fact: I generated this text using Gemini.) I added a bunch of zeros at the beginning and the end of the text file, so that we can visualize it better when it is converted to a stream of numbers.
 
 <p align="center">
@@ -98,14 +110,9 @@ We are now ready to construct the OFDM radio frames. We will do so using the "OF
 
 We have chosen an "FFT length" of 64. This means each OFDM symbol will be consist of up to 64 individual tones (also known as sub-carriers) in the frequency domain, with indices from -32 to 31. Each sub-carrier will have a complex amplitude, corresponding to the complex amplitude of the QAM symbols of our transmit stream. In practice, not all 64 sub-carriers will be used to carry data. We specify which ones will be used through the "Occupied Sub-carriers" argument. In this example, we will use a total of 48 carrier to convey data. Their indices are as follows:
 
-$$\left[-26, -25, -24, -23, -22, \\
-       -20, -19, -18, -17, -16, -15, -14, -13, -12, -11, -10, -9, -8, \\
-       -6, -5, -4, -3, -2, -1, \\
-       1, 2, 3, 4, 5, 6, 8, \\
-       9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, \\
-       22, 23, 24, 25, 26\right]$$
+$$[-26:1:-22], [-20:1:-8], [-6,:1:-1], [1:1:6], [8:1:20], [22:1:26]$$
 
-In addition to the occupied sub-carriers, we will also allocate 4 pilot sub-carriers. These are tones with complex amplitudes known to both the transmitter and the receiver. They will be used to perform channel estimation and equalization at the receiver. In this example, we chose sub-carriers [-21, -7, 7, 21] as pilot sub-carriers. 
+In addition to the occupied sub-carriers, we will also allocate 4 pilot sub-carriers. These are tones with complex amplitudes known to both the transmitter and the receiver. They will be used to perform channel estimation and equalization at the receiver. In this example, we chose sub-carriers $[-21, -7, 7, 21]$ as pilot sub-carriers. 
 
 The unallocated sub-carriers will have zero amplitude. These are the sub-carriers with the lowest and the highest frequencies, with indices smaller than -26 and greater than 26 respectively. These are also known as the guard sub-carriers. Furthermore, the DC sub-carrier (with index 0) is also left unused.
 
@@ -188,3 +195,5 @@ At the output of our digital IQ mixer, we can see that the energy of the signal 
 <p align="center">
 <img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/simulated_TX_RF_signal.png" alt="drawing" width="500"/>
 </p>
+
+## 1.2 Receiver <a name="receiver"></a>
