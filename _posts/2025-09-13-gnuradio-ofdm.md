@@ -6,9 +6,14 @@ tags: dsp notes study communication rf
 
 # Table of contents
 0. [Introduction](#introduction)
+
 1. [Simulation](#simulation)
+
     1.1. [Transmitter](#transmitter)
+
     1.2. [Receiver](#receiver)
+
+2. [Experiment with Hardware](#hardware)
 
 # 0 Introduction <a name="introduction"></a>
 In this post I will deep dive into how to construct an Orthogonal Frequency Division Multiplexing (OFDM) wireless system using GNU Radio and two HackRF Software Defined Radios (SDR). We will eventually try to transfer an image over-the-air using QPSK modulation, and then demodulate the signal to recover the image.
@@ -187,7 +192,7 @@ In the above time-domain OFDM waveform, we can also see that the peak amplitude 
 Finally, before transmitting the signal over-the-air, we need to upconvert it to a higher frequency, so that it can be radiated efficiently using an antenna. For now, since we are just simulating the system without any actual hardware, we will do the up-conversion digitally, by multiplying the real and the imaginary part of the signal with a sine and a consine wave at the carrier frequency. This is exactly how an IQ mixer works. So the completely transmitter chain looks like this:
 
 <p align="center">
-<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/transmit_chain_simulation.png" alt="drawing" width="500"/>
+<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/transmit_chain_simulation.png" alt="drawing" width="900"/>
 </p>
 
 At the output of our digital IQ mixer, we can see that the energy of the signal is now centered at the carrier frequency (chosen to be 100kHz for illustration; we will use a much higher frequency when actually transmitting the signal over-the-air).
@@ -197,3 +202,51 @@ At the output of our digital IQ mixer, we can see that the energy of the signal 
 </p>
 
 ## 1.2 Receiver <a name="receiver"></a>
+
+At the receiver, our first task is to downconvert the signal from RF to baseband. Again, since we are only simulating the system now, we will perform this operating digitally.
+
+<p align="center">
+<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/digital_downconversion.png" alt="drawing" width="500"/>
+</p>
+
+Notice that the carrier frequency of the receiver does not match that of the transmitter exactly, because I have manually added a carrier frequency offset (CFO). CFO is present in any real communication system due to mismatch between the transmitter and the receiver local oscillator frequencies, the doppler effect, etc.
+
+After downconversion using the digital mixer, I have added a "Channel Model" block, which is used to simulate the effect of timing offset between the transmitter and the receiver.
+
+Notice that prior to down-sampling the signal for further digital processing, we apply a low pass filter (LPF). The LPF that we applied is exactly the same as the interpolating LPF used at the transmitter. This is called [matched filtering](https://en.wikipedia.org/wiki/Matched_filter). It helps ensure we get the maximum possible signal-to-noise ratio (SNR) at the receiver when transmitting over a noisy channel.
+
+The downsampled received basedband signal has the following frequency spectrum:
+
+<p align="center">
+<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/rx_baseband_spectrum_downsampled.png" alt="drawing" width="500"/>
+</p>
+
+In order to properly demodulate the received signal, we must estimate the CFO perform a coarse correction. Otherwise the demodulated constellation points will keep rotating on the IQ plane, preventing us from properly translating the points back into bits. I will not go over the exact working principle of the CFO estimator here. I will just show that we can do so using the "Schmidl & Cox OFDM Synchronization" block.
+
+<p align="center">
+<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/CFO_correction.png" alt="drawing" width="500"/>
+</p>
+
+Essentially, this block estimates and outputs the carrier frequency offset. Using the "Frequency Mod" block, we generate a complex sinusoid whose frequency is equal to the negative of the offset frequency. Then, when we multiply the original signal (with the CFO) with this sinusoid, the frequency offset is cancelled out.
+
+This is made clear when we plot the output spectrum of the Frequency Mod block; It is a complex sinusoid (i.e. its spectrum is not symmetric) with frequency 10Hz. Since our receiver has an LO frequency of 100.010kHz, the downconverted baseband signal will be centered around -10Hz. After multiplying with this sinusoid, the baseband signal will be centered around 0Hz.
+
+<p align="center">
+<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/CFO_sinusoid.png" alt="drawing" width="500"/>
+</p>
+
+This step only achieves coarse CFO correction. We will perform fine CFO correction at a later stage using the synchronization words that were added to the radio frames.
+
+Another important output of the OFDM Sychronization block is the "Detect" flag, which is raised to 1 every time a new radio frame is detected.
+
+If we plot the time domain signal and the detect flag together, we can see that the flag aligns with the radio frames. (remember our signal is essentially 2 radio frames that are repeated indefinitely).
+
+<p align="center">
+<img src="https://paulxu.me/images/2025-09-13-gnuradio-ofdm/detect_radio_frame_overlay.png" alt="drawing" width="500"/>
+</p>
+
+ We tell the block that there are 3 header symbols. These correspond to the two sync words and the one preamble symbol which we added using the Protocol Formatter in the TX chain.
+
+## 2 Experiment with Hardware <a name="hardware"></a>
+
+I am putting the writing of this section on pause, because I need to first figure out how to deal with IQ imbalance of the HackRF.
