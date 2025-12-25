@@ -26,3 +26,7 @@ In **TX** mode, there are gain control at these two stages:
 
 - https://github.com/greatscottgadgets/hackrf/commit/ff843584ddec86622d5d776ef3cdb7fa0ec6b700
 https://osmocom.org/projects/gr-osmosdr/wiki/GrOsmoSDR#HackRF-Source-Sink
+
+## Baseband Filter Bandwidth
+
+The following bandwidths are available for the analog BB filter: [1.75, 2.5, 3.5, 5, 6, 7, 8, 9, 10, 12, 14, 15, 20, 24, 28] MHz.
