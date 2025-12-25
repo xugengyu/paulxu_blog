@@ -249,4 +249,4 @@ If we plot the time domain signal and the detect flag together, we can see that 
 
 ## 2 Experiment with Hardware <a name="hardware"></a>
 
-I am putting the writing of this section on pause, because I need to first figure out how to deal with IQ imbalance of the HackRF.
+I am putting the writing of this section on pause. I need to first figure out how to deal with the transmitter and receiver impairments on the HackRF.
