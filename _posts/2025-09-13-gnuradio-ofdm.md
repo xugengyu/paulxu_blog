@@ -249,4 +249,5 @@ If we plot the time domain signal and the detect flag together, we can see that 
 
 ## 2 Experiment with Hardware <a name="hardware"></a>
 
-I am putting the writing of this section on pause. I need to first figure out how to deal with the transmitter and receiver impairments on the HackRF.
+I will first attempt to transmit and receive some OFDM packets using a bladeRF 2.0 micro xA4 which has a loopback mode. This will be easier than trying to transmit and receive over-the-air using two separate HackRFs, since we do not need to worry about CFO and SFO. 
+
