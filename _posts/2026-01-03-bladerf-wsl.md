@@ -10,7 +10,7 @@ This is a short guide to getting the bladeRF SDR to work with Windows Subsystem 
 
 I just installed an Ubuntu distribution directly from the Microsoft Store by searching it up. There are other ways to install WSL outlined [here](https://documentation.ubuntu.com/wsl/stable/howto/install-ubuntu-wsl2/).
 
-Once we are inside WSL, we need to install [gnuradio](https://wiki.gnuradio.org/index.php/InstallingGR):
+Once we are inside the Ubuntu environment, we need to install [gnuradio](https://wiki.gnuradio.org/index.php/InstallingGR):
 
 - `sudo apt-get update`
 
@@ -18,7 +18,7 @@ Once we are inside WSL, we need to install [gnuradio](https://wiki.gnuradio.org/
 
 ## Attaching bladeRF to WSL in Windows Powershell
 
-1. Install Windows Subsystem for Linux
+1. Install usbipd on Windows:
 
     - `winget install usbipd`
 
@@ -28,23 +28,25 @@ Once we are inside WSL, we need to install [gnuradio](https://wiki.gnuradio.org/
 
     - `usbipd list`
 
-3. Share bladeRF to allow it to be attached to WSL:
+3. Share the bladeRF device:
 
     - `usbipd bind --busid <bus id>`
 
     - note the sharing should be persistent
 
-4. Attach bladeRF to WSL:
+4. Attach bladeRF to our Linux distribution:
 
     - `usbipd attach --wsl --busid <bus id>`
 
-## Accessing bladeRF in WSL
+## Accessing bladeRF in Linux
 
 1. Check that bladeRF is attached:
 
+    - `lsusb`
+
     - `sudo bladeRF-cli -p`
 
-2. Download the latest FPGA bitstream:
+3. Download the latest FPGA bitstream:
 
     - `wget https://www.nuand.com/fpga/hostedxA4-latest.rbf`
 
