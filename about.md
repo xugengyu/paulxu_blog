@@ -8,4 +8,4 @@ I earned my PhD in Electrical Engineering, with a focus on electromagnetics, fro
 
 Outside of work, I enjoy exploring a wide range of topics—some related to my field, others not so much. A few of these explorations are documented on my [notes](notes.md) page.
 
-I’m also a big fan of Pandas and Plotly. :D
+I have recently started maintaining a [collection of interactiveJupyter notebooks](https://xugengyu.github.io/paul_radio_lab/lab/index.html) in which I explore concepts related to radio systems, wireless communication, and digital signal processing.
