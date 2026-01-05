@@ -6,7 +6,18 @@ tags: notes hobby
 
 This is a short guide to getting the bladeRF SDR to work with Windows Subsystem for Linux (WSL).
 
-## Install and configure WSL
+## Install Windows Subsystem for Linux (WSL)
+
+- `wsl --install`
+
+- Enable the following features through the "Turn Windows Features On of Off" dialog from Control Panel
+
+    - Hyper-V
+    - Virtual Machine Platform
+    - Windows Subsystem for Linux
+
+
+## Install and configure Linux Distribution
 
 I just installed an Ubuntu distribution directly from the Microsoft Store by searching it up. There are other ways to install WSL outlined [here](https://documentation.ubuntu.com/wsl/stable/howto/install-ubuntu-wsl2/).
 
